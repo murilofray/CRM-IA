@@ -38,6 +38,8 @@ const Chart = () => {
 	]);
 
 	useEffect(() => {
+		if (!tickets || !Array.isArray(tickets)) return;
+		
 		setChartData(prevState => {
 			let aux = [...prevState];
 
@@ -55,7 +57,7 @@ const Chart = () => {
 	return (
 		<React.Fragment>
 			<Title>{`${i18n.t("dashboard.charts.perDay.title")}${
-				tickets.length
+				tickets ? tickets.length : 0
 			}`}</Title>
 			<ResponsiveContainer>
 				<BarChart
