@@ -260,13 +260,6 @@ const handleMessage = async (
       // if so, this message was already been stored in database;
       if (/\u200e/.test(msg.body[0])) return;
 
-      // media messages sent from me from cell phone, first comes with "hasMedia = false" and type = "image/ptt/etc"
-      // in this case, return and let this message be handled by "media_uploaded" event, when it will have "hasMedia = true"
-
-      if (!msg.hasMedia && msg.type !== "location" && msg.type !== "chat" && msg.type !== "vcard"
-        //&& msg.type !== "multi_vcard"
-      ) return;
-
       msgContact = await wbot.getContactById(msg.to);
     } else {
       msgContact = await msg.getContact();
