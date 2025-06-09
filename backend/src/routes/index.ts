@@ -14,16 +14,16 @@ import apiRoutes from "./apiRoutes";
 
 const routes = Router();
 
-routes.use(userRoutes);
-routes.use("/auth", authRoutes);
-routes.use(settingRoutes);
-routes.use(contactRoutes);
-routes.use(ticketRoutes);
-routes.use(whatsappRoutes);
-routes.use(messageRoutes);
-routes.use(whatsappSessionRoutes);
-routes.use(queueRoutes);
-routes.use(quickAnswerRoutes);
-routes.use("/api/messages", apiRoutes);
+routes.use("/api", userRoutes);
+routes.use("/api/auth", authRoutes);
+routes.use("/api", settingRoutes);
+routes.use("/api", contactRoutes);
+routes.use("/api", ticketRoutes);
+routes.use("/api", whatsappRoutes);
+routes.use("/api", messageRoutes);
+routes.use("/api", whatsappSessionRoutes);
+routes.use("/api", queueRoutes);
+routes.use("/api", quickAnswerRoutes);
+routes.use("/api/external", apiRoutes);
 
 export default routes;

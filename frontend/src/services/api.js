@@ -2,7 +2,7 @@ import axios from "axios";
 import { getBackendUrl } from "../config";
 
 const api = axios.create({
-	baseURL: getBackendUrl(),
+	baseURL: `${getBackendUrl()}/api`,
 	withCredentials: true,
 });
 
