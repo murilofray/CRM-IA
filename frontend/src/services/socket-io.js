@@ -5,7 +5,7 @@ function connectToSocket() {
   const token = localStorage.getItem("token");
   return openSocket(getBackendUrl(), {
     transports: ["websocket", "polling", "flashsocket"],
-    auth: {
+    query: {
       token: JSON.parse(token),
     },
   });

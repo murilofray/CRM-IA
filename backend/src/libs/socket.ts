@@ -15,7 +15,7 @@ export const initIO = (httpServer: Server): SocketIO => {
   });
 
   io.on("connection", socket => {
-    const { token } = socket.handshake.auth;
+    const { token } = socket.handshake.query;
     let tokenData = null;
 
     try {
@@ -24,7 +24,7 @@ export const initIO = (httpServer: Server): SocketIO => {
     } catch (error) {
       logger.error(JSON.stringify(error), "Error decoding token");
       socket.disconnect();
-      return;
+      return io;
     }
 
     logger.info("Client Connected");
