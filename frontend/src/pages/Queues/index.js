@@ -47,14 +47,16 @@ const reducer = (state, action) => {
     const queues = action.payload;
     const newQueues = [];
 
-    queues.forEach((queue) => {
-      const queueIndex = state.findIndex((q) => q.id === queue.id);
-      if (queueIndex !== -1) {
-        state[queueIndex] = queue;
-      } else {
-        newQueues.push(queue);
-      }
-    });
+    if (queues && Array.isArray(queues)) {
+      queues.forEach((queue) => {
+        const queueIndex = state.findIndex((q) => q.id === queue.id);
+        if (queueIndex !== -1) {
+          state[queueIndex] = queue;
+        } else {
+          newQueues.push(queue);
+        }
+      });
+    }
 
     return [...state, ...newQueues];
   }
@@ -176,7 +178,7 @@ const Queues = () => {
       <QueueModal
         open={queueModalOpen}
         onClose={handleCloseQueueModal}
-        queueId={selectedQueue?.id}
+        queueId={selectedQueue && selectedQueue.id}
       />
       <MainHeader>
         <Title>{i18n.t("queues.title")}</Title>

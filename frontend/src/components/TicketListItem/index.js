@@ -135,7 +135,7 @@ const TicketListItem = ({ ticket }) => {
 		try {
 			await api.put(`/tickets/${id}`, {
 				status: "open",
-				userId: user?.id,
+				userId: user && user.id,
 			});
 		} catch (err) {
 			setLoading(false);
@@ -168,15 +168,15 @@ const TicketListItem = ({ ticket }) => {
 				<Tooltip
 					arrow
 					placement="right"
-					title={ticket.queue?.name || "Sem fila"}
+					title={(ticket.queue && ticket.queue.name) || "Sem fila"}
 				>
 					<span
-						style={{ backgroundColor: ticket.queue?.color || "#7C7C7C" }}
+						style={{ backgroundColor: (ticket.queue && ticket.queue.color) || "#7C7C7C" }}
 						className={classes.ticketQueueColor}
 					></span>
 				</Tooltip>
 				<ListItemAvatar>
-					<Avatar src={ticket?.contact?.profilePicUrl} />
+					<Avatar src={ticket && ticket.contact && ticket.contact.profilePicUrl} />
 				</ListItemAvatar>
 				<ListItemText
 					disableTypography
@@ -204,15 +204,17 @@ const TicketListItem = ({ ticket }) => {
 									variant="body2"
 									color="textSecondary"
 								>
-									{isSameDay(parseISO(ticket.updatedAt), new Date()) ? (
+									{ticket.updatedAt && isSameDay(parseISO(ticket.updatedAt), new Date()) ? (
 										<>{format(parseISO(ticket.updatedAt), "HH:mm")}</>
-									) : (
+									) : ticket.updatedAt ? (
 										<>{format(parseISO(ticket.updatedAt), "dd/MM/yyyy")}</>
+									) : (
+										"-"
 									)}
 								</Typography>
 							)}
 							{ticket.whatsappId && (
-								<div className={classes.userTag} title={i18n.t("ticketsList.connectionTitle")}>{ticket.whatsapp?.name}</div>
+								<div className={classes.userTag} title={i18n.t("ticketsList.connectionTitle")}>{ticket.whatsapp && ticket.whatsapp.name}</div>
 							)}
 						</span>
 					}

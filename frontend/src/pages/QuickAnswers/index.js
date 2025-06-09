@@ -35,14 +35,16 @@ const reducer = (state, action) => {
     const quickAnswers = action.payload;
     const newQuickAnswers = [];
 
-    quickAnswers.forEach((quickAnswer) => {
-      const quickAnswerIndex = state.findIndex((q) => q.id === quickAnswer.id);
-      if (quickAnswerIndex !== -1) {
-        state[quickAnswerIndex] = quickAnswer;
-      } else {
-        newQuickAnswers.push(quickAnswer);
-      }
-    });
+    if (quickAnswers && Array.isArray(quickAnswers)) {
+      quickAnswers.forEach((quickAnswer) => {
+        const quickAnswerIndex = state.findIndex((q) => q.id === quickAnswer.id);
+        if (quickAnswerIndex !== -1) {
+          state[quickAnswerIndex] = quickAnswer;
+        } else {
+          newQuickAnswers.push(quickAnswer);
+        }
+      });
+    }
 
     return [...state, ...newQuickAnswers];
   }

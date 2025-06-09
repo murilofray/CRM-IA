@@ -361,7 +361,7 @@ const Connections = () => {
 												{renderActionButtons(whatsApp)}
 											</TableCell>
 											<TableCell align="center">
-												{format(parseISO(whatsApp.updatedAt), "dd/MM/yy HH:mm")}
+												{whatsApp.updatedAt ? format(parseISO(whatsApp.updatedAt), "dd/MM/yy HH:mm") : "-"}
 											</TableCell>
 											<TableCell align="center">
 												{whatsApp.isDefault && (
