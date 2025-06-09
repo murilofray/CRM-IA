@@ -114,7 +114,7 @@ const NotificationsPopOver = () => {
 			if (
 				data.action === "create" &&
 				!data.message.read &&
-				(data.ticket.userId === user?.id || !data.ticket.userId)
+				((data.ticket.userId === (user && user.id)) || !data.ticket.userId)
 			) {
 				setNotifications(prevState => {
 					if (!prevState || !Array.isArray(prevState)) return [data.ticket];
@@ -129,7 +129,7 @@ const NotificationsPopOver = () => {
 				const shouldNotNotificate =
 					(data.message.ticketId === ticketIdRef.current &&
 						document.visibilityState === "visible") ||
-					(data.ticket.userId && data.ticket.userId !== user?.id) ||
+					(data.ticket.userId && data.ticket.userId !== (user && user.id)) ||
 					data.ticket.isGroup;
 
 				if (shouldNotNotificate) return;

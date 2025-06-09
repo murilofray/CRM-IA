@@ -212,7 +212,7 @@ const Queues = () => {
           </TableHead>
           <TableBody>
             <>
-              {queues.map((queue) => (
+              {queues && Array.isArray(queues) && queues.map((queue) => (
                 <TableRow key={queue.id}>
                   <TableCell align="center">{queue.name}</TableCell>
                   <TableCell align="center">

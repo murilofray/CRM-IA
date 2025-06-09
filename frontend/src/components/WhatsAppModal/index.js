@@ -76,7 +76,7 @@ const WhatsAppModal = ({ open, onClose, whatsAppId }) => {
 				const { data } = await api.get(`whatsapp/${whatsAppId}`);
 				setWhatsApp(data);
 
-				const whatsQueueIds = data.queues?.map(queue => queue.id);
+				const whatsQueueIds = data.queues && Array.isArray(data.queues) ? data.queues.map(queue => queue.id) : [];
 				setSelectedQueueIds(whatsQueueIds);
 			} catch (err) {
 				toastError(err);

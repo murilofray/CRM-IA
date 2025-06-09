@@ -122,7 +122,7 @@ const Ticket = () => {
     socket.on("contact", (data) => {
       if (data.action === "update") {
         setContact((prevState) => {
-          if (prevState.id === data.contact?.id) {
+          			if (prevState.id === (data.contact && data.contact.id)) {
             return { ...prevState, ...data.contact };
           }
           return prevState;

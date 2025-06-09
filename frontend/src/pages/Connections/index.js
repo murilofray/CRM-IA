@@ -302,12 +302,12 @@ const Connections = () => {
 			<QrcodeModal
 				open={qrModalOpen}
 				onClose={handleCloseQrModal}
-				whatsAppId={!whatsAppModalOpen && selectedWhatsApp?.id}
+				whatsAppId={!whatsAppModalOpen && selectedWhatsApp && selectedWhatsApp.id}
 			/>
 			<WhatsAppModal
 				open={whatsAppModalOpen}
 				onClose={handleCloseWhatsAppModal}
-				whatsAppId={!qrModalOpen && selectedWhatsApp?.id}
+				whatsAppId={!qrModalOpen && selectedWhatsApp && selectedWhatsApp.id}
 			/>
 			<MainHeader>
 				<Title>{i18n.t("connections.title")}</Title>
@@ -350,7 +350,7 @@ const Connections = () => {
 							<TableRowSkeleton />
 						) : (
 							<>
-								{whatsApps?.length > 0 &&
+								{whatsApps && whatsApps.length > 0 &&
 									whatsApps.map(whatsApp => (
 										<TableRow key={whatsApp.id}>
 											<TableCell align="center">{whatsApp.name}</TableCell>

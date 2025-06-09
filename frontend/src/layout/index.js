@@ -208,7 +208,7 @@ const LoggedInLayout = ({ children }) => {
       <UserModal
         open={userModalOpen}
         onClose={() => setUserModalOpen(false)}
-        userId={user?.id}
+        				userId={user && user.id}
       />
       <AppBar
         position="absolute"

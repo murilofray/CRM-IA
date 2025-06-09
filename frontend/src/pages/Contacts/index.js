@@ -40,14 +40,16 @@ const reducer = (state, action) => {
     const contacts = action.payload;
     const newContacts = [];
 
-    contacts.forEach((contact) => {
-      const contactIndex = state.findIndex((c) => c.id === contact.id);
-      if (contactIndex !== -1) {
-        state[contactIndex] = contact;
-      } else {
-        newContacts.push(contact);
-      }
-    });
+    if (contacts && Array.isArray(contacts)) {
+      contacts.forEach((contact) => {
+        const contactIndex = state.findIndex((c) => c.id === contact.id);
+        if (contactIndex !== -1) {
+          state[contactIndex] = contact;
+        } else {
+          newContacts.push(contact);
+        }
+      });
+    }
 
     return [...state, ...newContacts];
   }
@@ -167,7 +169,7 @@ const Contacts = () => {
     try {
       const { data: ticket } = await api.post("/tickets", {
         contactId: contactId,
-        userId: user?.id,
+        userId: user && user.id,
         status: "open",
       });
       history.push(`/tickets/${ticket.id}`);

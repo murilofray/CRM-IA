@@ -446,7 +446,7 @@ const MessagesList = ({ ticketId, isGroup }) => {
           }
         }
       }
-      return <VcardPreview contact={contact} numbers={obj[0]?.number} />
+      		return <VcardPreview contact={contact} numbers={obj[0] && obj[0].number} />
     }
     /*else if (message.mediaType === "multi_vcard") {
       console.log("multi_vcard")
@@ -575,16 +575,16 @@ const MessagesList = ({ ticketId, isGroup }) => {
       >
         <span
           className={clsx(classes.quotedSideColorLeft, {
-            [classes.quotedSideColorRight]: message.quotedMsg?.fromMe,
+            					[classes.quotedSideColorRight]: message.quotedMsg && message.quotedMsg.fromMe,
           })}
         ></span>
         <div className={classes.quotedMsg}>
-          {!message.quotedMsg?.fromMe && (
-            <span className={classes.messageContactName}>
-              {message.quotedMsg?.contact?.name}
-            </span>
-          )}
-          {message.quotedMsg?.body}
+          					{!(message.quotedMsg && message.quotedMsg.fromMe) && (
+						<span className={classes.messageContactName}>
+							{message.quotedMsg && message.quotedMsg.contact && message.quotedMsg.contact.name}
+						</span>
+					)}
+					{message.quotedMsg && message.quotedMsg.body}
         </div>
       </div>
     );
@@ -611,7 +611,7 @@ const MessagesList = ({ ticketId, isGroup }) => {
                 </IconButton>
                 {isGroup && (
                   <span className={classes.messageContactName}>
-                    {message.contact?.name}
+                    								{message.contact && message.contact.name}
                   </span>
                 )}
                 {(message.mediaUrl || message.mediaType === "location" || message.mediaType === "vcard"

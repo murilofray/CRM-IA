@@ -60,9 +60,9 @@ const QueueSelect = ({ selectedQueueIds, onChange }) => {
 					}}
 					renderValue={selected => (
 						<div className={classes.chips}>
-							{selected?.length > 0 &&
+							{selected && Array.isArray(selected) && selected.length > 0 &&
 								selected.map(id => {
-									const queue = queues.find(q => q.id === id);
+									const queue = queues && Array.isArray(queues) && queues.find(q => q.id === id);
 									return queue ? (
 										<Chip
 											key={id}
@@ -76,7 +76,7 @@ const QueueSelect = ({ selectedQueueIds, onChange }) => {
 						</div>
 					)}
 				>
-					{queues.map(queue => (
+					{queues && Array.isArray(queues) && queues.map(queue => (
 						<MenuItem key={queue.id} value={queue.id}>
 							{queue.name}
 						</MenuItem>

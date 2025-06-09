@@ -67,7 +67,7 @@ const TicketActionButtons = ({ ticket }) => {
 					loading={loading}
 					startIcon={<Replay />}
 					size="small"
-					onClick={e => handleUpdateTicketStatus(e, "open", user?.id)}
+					onClick={e => handleUpdateTicketStatus(e, "open", user && user.id)}
 				>
 					{i18n.t("messagesList.header.buttons.reopen")}
 				</ButtonWithSpinner>
@@ -87,7 +87,7 @@ const TicketActionButtons = ({ ticket }) => {
 						size="small"
 						variant="contained"
 						color="primary"
-						onClick={e => handleUpdateTicketStatus(e, "closed", user?.id)}
+						onClick={e => handleUpdateTicketStatus(e, "closed", user && user.id)}
 					>
 						{i18n.t("messagesList.header.buttons.resolve")}
 					</ButtonWithSpinner>
@@ -108,7 +108,7 @@ const TicketActionButtons = ({ ticket }) => {
 					size="small"
 					variant="contained"
 					color="primary"
-					onClick={e => handleUpdateTicketStatus(e, "open", user?.id)}
+					onClick={e => handleUpdateTicketStatus(e, "open", user && user.id)}
 				>
 					{i18n.t("messagesList.header.buttons.accept")}
 				</ButtonWithSpinner>
