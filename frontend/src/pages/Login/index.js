@@ -259,22 +259,22 @@ const Login = () => {
             AzimuteCRM
           </Typography>
           <Typography variant="h6" className={classes.brandSubtitle}>
-            Customer Relationship Management Platform
+            Plataforma de Gestão de Relacionamento com Clientes
           </Typography>
         </div>
         
         <ul className={classes.featuresList}>
-          <li>
+          {/* <li>
             <TrendingUp />
-            Advanced Analytics & Reporting
-          </li>
+            Análises e Relatórios Avançados
+          </li> */}
           <li>
             <BusinessCenter />
-            Complete Customer Management
+            Gestão Completa de Clientes
           </li>
           <li>
             <LockOutlined />
-            Enterprise-Grade Security
+            Segurança de Nível Empresarial
           </li>
         </ul>
       </div>
@@ -293,10 +293,10 @@ const Login = () => {
 
             <div className={classes.welcomeText}>
               <Typography variant="h4" className={classes.welcomeTitle}>
-                Welcome Back
+                Bem-vindo de Volta
               </Typography>
               <Typography variant="body1" className={classes.welcomeSubtitle}>
-                Sign in to access your dashboard
+                Faça login para acessar seu painel
               </Typography>
             </div>
 
@@ -352,15 +352,6 @@ const Login = () => {
               >
                 {i18n.t("login.buttons.submit")}
               </Button>
-
-              <div className={classes.registerLink}>
-                <Typography variant="body2">
-                  Don't have an account?{" "}
-                  <Link component={RouterLink} to="/signup">
-                    {i18n.t("login.buttons.register")}
-                  </Link>
-                </Typography>
-              </div>
             </form>
           </CardContent>
         </Card>
