@@ -39,7 +39,7 @@ const useAuth = () => {
 
 				const { data } = await api.post("/auth/refresh_token");
 				if (data) {
-					localStorage.setItem("token", JSON.stringify(data.token));
+					localStorage.setItem("token", data.token);
 					api.defaults.headers.Authorization = `Bearer ${data.token}`;
 				}
 				return api(originalRequest);
@@ -89,7 +89,7 @@ const useAuth = () => {
 
 		try {
 			const { data } = await api.post("/auth/login", userData);
-			localStorage.setItem("token", JSON.stringify(data.token));
+			localStorage.setItem("token", data.token);
 			api.defaults.headers.Authorization = `Bearer ${data.token}`;
 			setUser(data.user);
 			setIsAuth(true);
