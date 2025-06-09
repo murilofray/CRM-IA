@@ -72,7 +72,7 @@ const NotificationsPopOver = () => {
 	}, [play]);
 
 	useEffect(() => {
-		setNotifications(tickets);
+		setNotifications(tickets || []);
 	}, [tickets]);
 
 	useEffect(() => {
@@ -87,6 +87,7 @@ const NotificationsPopOver = () => {
 		socket.on("ticket", data => {
 			if (data.action === "updateUnread" || data.action === "delete") {
 				setNotifications(prevState => {
+					if (!prevState || !Array.isArray(prevState)) return [];
 					const ticketIndex = prevState.findIndex(t => t.id === data.ticketId);
 					if (ticketIndex !== -1) {
 						prevState.splice(ticketIndex, 1);
@@ -116,6 +117,7 @@ const NotificationsPopOver = () => {
 				(data.ticket.userId === user?.id || !data.ticket.userId)
 			) {
 				setNotifications(prevState => {
+					if (!prevState || !Array.isArray(prevState)) return [data.ticket];
 					const ticketIndex = prevState.findIndex(t => t.id === data.ticket.id);
 					if (ticketIndex !== -1) {
 						prevState[ticketIndex] = data.ticket;
@@ -196,7 +198,7 @@ const NotificationsPopOver = () => {
 				aria-label="Open Notifications"
 				className={classes.iconButton}
 			>
-				<Badge badgeContent={notifications.length} color="secondary">
+				<Badge badgeContent={notifications ? notifications.length : 0} color="secondary">
 					<ChatIcon />
 				</Badge>
 			</IconButton>
@@ -216,7 +218,7 @@ const NotificationsPopOver = () => {
 				onClose={handleClickAway}
 			>
 				<List dense className={classes.tabContainer}>
-					{notifications.length === 0 ? (
+					{!notifications || notifications.length === 0 ? (
 						<ListItem>
 							<ListItemText>{i18n.t("notifications.noTickets")}</ListItemText>
 						</ListItem>
