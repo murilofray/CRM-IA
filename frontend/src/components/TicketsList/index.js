@@ -74,6 +74,7 @@ const useStyles = makeStyles(theme => ({
 const reducer = (state, action) => {
 	if (action.type === "LOAD_TICKETS") {
 		const newTickets = action.payload;
+		if (!newTickets || !Array.isArray(newTickets)) return state;
 
 		newTickets.forEach(ticket => {
 			const ticketIndex = state.findIndex(t => t.id === ticket.id);
@@ -185,11 +186,11 @@ const reducer = (state, action) => {
 		const socket = openSocket();
 
 		const shouldUpdateTicket = ticket => !searchParam &&
-			(!ticket.userId || ticket.userId === user?.id || showAll) &&
-			(!ticket.queueId || selectedQueueIds.indexOf(ticket.queueId) > -1);
+			(!ticket?.userId || ticket.userId === user?.id || showAll) &&
+			(!ticket?.queueId || selectedQueueIds?.indexOf(ticket.queueId) > -1);
 
 		const notBelongsToUserQueues = ticket =>
-			ticket.queueId && selectedQueueIds.indexOf(ticket.queueId) === -1;
+			ticket?.queueId && selectedQueueIds?.indexOf(ticket.queueId) === -1;
 
 		socket.on("connect", () => {
 			if (status) {
@@ -246,9 +247,9 @@ const reducer = (state, action) => {
 		};
 	}, [status, searchParam, showAll, user, selectedQueueIds]);
 
-	useEffect(() => {
+	  useEffect(() => {
     if (typeof updateCount === "function") {
-      updateCount(ticketsList.length);
+      updateCount(ticketsList ? ticketsList.length : 0);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ticketsList]);
@@ -278,7 +279,7 @@ const reducer = (state, action) => {
 				onScroll={handleScroll}
 			>
 				<List style={{ paddingTop: 0 }}>
-					{ticketsList.length === 0 && !loading ? (
+					{!ticketsList || ticketsList.length === 0 && !loading ? (
 						<div className={classes.noTicketsDiv}>
 							<span className={classes.noTicketsTitle}>
 								{i18n.t("ticketsList.noTicketsTitle")}
@@ -289,8 +290,8 @@ const reducer = (state, action) => {
 						</div>
 					) : (
 						<>
-							{ticketsList.map(ticket => (
-								<TicketListItem ticket={ticket} key={ticket.id} />
+							{ticketsList?.map(ticket => (
+								<TicketListItem ticket={ticket} key={ticket?.id} />
 							))}
 						</>
 					)}

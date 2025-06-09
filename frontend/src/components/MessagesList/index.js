@@ -525,7 +525,7 @@ const MessagesList = ({ ticketId, isGroup }) => {
         </span>
       );
     }
-    if (index < messagesList.length - 1) {
+    if (messagesList && index < messagesList.length - 1) {
       let messageDay = parseISO(messagesList[index].createdAt);
       let previousMessageDay = parseISO(messagesList[index - 1].createdAt);
 
@@ -542,7 +542,7 @@ const MessagesList = ({ ticketId, isGroup }) => {
         );
       }
     }
-    if (index === messagesList.length - 1) {
+    if (messagesList && index === messagesList.length - 1) {
       return (
         <div
           key={`ref-${message.createdAt}`}
@@ -554,7 +554,7 @@ const MessagesList = ({ ticketId, isGroup }) => {
   };
 
   const renderMessageDivider = (message, index) => {
-    if (index < messagesList.length && index > 0) {
+    if (messagesList && index < messagesList.length && index > 0) {
       let messageUser = messagesList[index].fromMe;
       let previousMessageUser = messagesList[index - 1].fromMe;
 
@@ -591,7 +591,7 @@ const MessagesList = ({ ticketId, isGroup }) => {
   };
 
   const renderMessages = () => {
-    if (messagesList.length > 0) {
+    if (messagesList && messagesList.length > 0) {
       const viewMessagesList = messagesList.map((message, index) => {
         if (!message.fromMe) {
           return (
@@ -689,7 +689,7 @@ const MessagesList = ({ ticketId, isGroup }) => {
         className={classes.messagesList}
         onScroll={handleScroll}
       >
-        {messagesList.length > 0 ? renderMessages() : []}
+        {messagesList && messagesList.length > 0 ? renderMessages() : []}
       </div>
       {loading && (
         <div>

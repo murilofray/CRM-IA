@@ -18,7 +18,7 @@ const useAuth = () => {
 		config => {
 			const token = localStorage.getItem("token");
 			if (token) {
-				config.headers["Authorization"] = `Bearer ${token}`;
+				config.headers["Authorization"] = `Bearer ${JSON.parse(token)}`;
 				setIsAuth(true);
 			}
 			return config;
@@ -39,7 +39,7 @@ const useAuth = () => {
 
 				const { data } = await api.post("/auth/refresh_token");
 				if (data) {
-					localStorage.setItem("token", data.token);
+					localStorage.setItem("token", JSON.stringify(data.token));
 					api.defaults.headers.Authorization = `Bearer ${data.token}`;
 				}
 				return api(originalRequest);
@@ -74,7 +74,7 @@ const useAuth = () => {
 		const socket = openSocket();
 
 		socket.on("user", data => {
-			if (data.action === "update" && data.user.id === user.id) {
+			if (data.action === "update" && data?.user?.id === user?.id) {
 				setUser(data.user);
 			}
 		});
@@ -89,7 +89,7 @@ const useAuth = () => {
 
 		try {
 			const { data } = await api.post("/auth/login", userData);
-			localStorage.setItem("token", data.token);
+			localStorage.setItem("token", JSON.stringify(data.token));
 			api.defaults.headers.Authorization = `Bearer ${data.token}`;
 			setUser(data.user);
 			setIsAuth(true);

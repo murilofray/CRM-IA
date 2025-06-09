@@ -50,14 +50,14 @@ const MainListItems = (props) => {
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
-      if (whatsApps.length > 0) {
+      if (whatsApps && whatsApps.length > 0) {
         const offlineWhats = whatsApps.filter((whats) => {
           return (
-            whats.status === "qrcode" ||
-            whats.status === "PAIRING" ||
-            whats.status === "DISCONNECTED" ||
-            whats.status === "TIMEOUT" ||
-            whats.status === "OPENING"
+            whats?.status === "qrcode" ||
+            whats?.status === "PAIRING" ||
+            whats?.status === "DISCONNECTED" ||
+            whats?.status === "TIMEOUT" ||
+            whats?.status === "OPENING"
           );
         });
         if (offlineWhats.length > 0) {
@@ -103,7 +103,7 @@ const MainListItems = (props) => {
         icon={<QuestionAnswerOutlinedIcon />}
       />
       <Can
-        role={user.profile}
+        role={user?.profile}
         perform="drawer-admin-items:view"
         yes={() => (
           <>

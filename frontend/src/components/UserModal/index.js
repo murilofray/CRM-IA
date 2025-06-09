@@ -211,7 +211,7 @@ const UserModal = ({ open, onClose, userId }) => {
 										margin="dense"
 									>
 										<Can
-											role={loggedInUser.profile}
+											role={loggedInUser?.profile}
 											perform="user-modal:editProfile"
 											yes={() => (
 												<>
@@ -236,7 +236,7 @@ const UserModal = ({ open, onClose, userId }) => {
 									</FormControl>
 								</div>
 								<Can
-									role={loggedInUser.profile}
+									role={loggedInUser?.profile}
 									perform="user-modal:editQueues"
 									yes={() => (
 										<QueueSelect
@@ -246,7 +246,7 @@ const UserModal = ({ open, onClose, userId }) => {
 									)}
 								/>
 								<Can
-									role={loggedInUser.profile}
+									role={loggedInUser?.profile}
 									perform="user-modal:editQueues"
 									yes={() => (!loading &&
 										<FormControl variant="outlined" margin="dense" className={classes.maxWidth} fullWidth>
@@ -258,8 +258,8 @@ const UserModal = ({ open, onClose, userId }) => {
 												label={i18n.t("userModal.form.whatsapp")}
 											>
 												<MenuItem value={''}>&nbsp;</MenuItem>
-												{whatsApps.map((whatsapp) => (
-													<MenuItem key={whatsapp.id} value={whatsapp.id}>{whatsapp.name}</MenuItem>
+												{whatsApps?.map((whatsapp) => (
+													<MenuItem key={whatsapp?.id} value={whatsapp?.id}>{whatsapp?.name}</MenuItem>
 												))}
 											</Field>
 										</FormControl>

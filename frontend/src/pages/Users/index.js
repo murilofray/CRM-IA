@@ -33,6 +33,7 @@ import toastError from "../../errors/toastError";
 const reducer = (state, action) => {
   if (action.type === "LOAD_USERS") {
     const users = action.payload;
+    if (!users || !Array.isArray(users)) return state;
     const newUsers = [];
 
     users.forEach((user) => {

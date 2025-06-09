@@ -259,7 +259,7 @@ const MessageInput = ({ ticketStatus }) => {
   };
 
   const handleInputPaste = (e) => {
-    if (e.clipboardData.files[0]) {
+    if (e.clipboardData?.files?.[0]) {
       setMedias([e.clipboardData.files[0]]);
     }
   };
@@ -270,9 +270,9 @@ const MessageInput = ({ ticketStatus }) => {
 
     const formData = new FormData();
     formData.append("fromMe", true);
-    medias.forEach((media) => {
+    medias?.forEach((media) => {
       formData.append("medias", media);
-      formData.append("body", media.name);
+      formData.append("body", media?.name);
     });
 
     try {
@@ -330,7 +330,7 @@ const MessageInput = ({ ticketStatus }) => {
           params: { searchParam: inputMessage.substring(1) },
         });
         setQuickAnswer(data.quickAnswers);
-        if (data.quickAnswers.length > 0) {
+        if (data.quickAnswers && data.quickAnswers.length > 0) {
           setTypeBar(true);
         } else {
           setTypeBar(false);
@@ -415,7 +415,7 @@ const MessageInput = ({ ticketStatus }) => {
     );
   };
 
-  if (medias.length > 0)
+  if (medias && medias.length > 0)
     return (
       <Paper elevation={0} square className={classes.viewMediaInputWrapper}>
         <IconButton
@@ -600,15 +600,15 @@ const MessageInput = ({ ticketStatus }) => {
             />
             {typeBar ? (
               <ul className={classes.messageQuickAnswersWrapper}>
-                {quickAnswers.map((value, index) => {
+                {quickAnswers?.map((value, index) => {
                   return (
                     <li
                       className={classes.messageQuickAnswersWrapperItem}
                       key={index}
                     >
                       {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                      <a onClick={() => handleQuickAnswersClick(value.message)}>
-                        {`${value.shortcut} - ${value.message}`}
+                      <a onClick={() => handleQuickAnswersClick(value?.message)}>
+                        {`${value?.shortcut} - ${value?.message}`}
                       </a>
                     </li>
                   );
