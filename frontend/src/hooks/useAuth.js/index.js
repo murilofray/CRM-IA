@@ -34,7 +34,7 @@ const useAuth = () => {
 		},
 		async error => {
 			const originalRequest = error.config;
-			if (error?.response?.status === 403 && !originalRequest._retry) {
+			if (error && error.response && error.response.status === 403 && !originalRequest._retry) {
 				originalRequest._retry = true;
 
 				const { data } = await api.post("/auth/refresh_token");
@@ -44,7 +44,7 @@ const useAuth = () => {
 				}
 				return api(originalRequest);
 			}
-			if (error?.response?.status === 401) {
+			if (error && error.response && error.response.status === 401) {
 				localStorage.removeItem("token");
 				api.defaults.headers.Authorization = undefined;
 				setIsAuth(false);
@@ -74,7 +74,7 @@ const useAuth = () => {
 		const socket = openSocket();
 
 		socket.on("user", data => {
-			if (data.action === "update" && data?.user?.id === user?.id) {
+			if (data.action === "update" && data && data.user && data.user.id === (user && user.id)) {
 				setUser(data.user);
 			}
 		});

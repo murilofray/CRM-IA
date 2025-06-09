@@ -1,21 +1,14 @@
 import React, { useState, useContext } from "react";
-import { Link as RouterLink } from "react-router-dom";
 
 import {
-  Avatar,
   Button,
   CssBaseline,
   TextField,
-  Grid,
-  Box,
   Typography,
-  Container,
   InputAdornment,
   IconButton,
-  Link,
   Card,
   CardContent,
-  Paper,
 } from '@material-ui/core';
 
 import { 
@@ -23,7 +16,6 @@ import {
   Visibility, 
   VisibilityOff,
   BusinessCenter,
-  TrendingUp
 } from '@material-ui/icons';
 
 import { makeStyles } from "@material-ui/core/styles";
