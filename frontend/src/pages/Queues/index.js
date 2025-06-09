@@ -102,7 +102,7 @@ const Queues = () => {
       setLoading(true);
       try {
         const { data } = await api.get("/queue");
-        dispatch({ type: "LOAD_QUEUES", payload: data });
+        dispatch({ type: "LOAD_QUEUES", payload: Array.isArray(data) ? data : [] });
 
         setLoading(false);
       } catch (err) {

@@ -56,8 +56,9 @@ const TransferTicketModal = ({ modalOpen, onClose, ticketid, ticketWhatsappId })
 	useEffect(() => {
 		const loadQueues = async () => {
 			const list = await findAllQueues();
-			setAllQueues(list);
-			setQueues(list);
+			const safeList = Array.isArray(list) ? list : [];
+			setAllQueues(safeList);
+			setQueues(safeList);
 		}
 		loadQueues();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -143,7 +144,7 @@ const TransferTicketModal = ({ modalOpen, onClose, ticketid, ticketWhatsappId })
 							if (newValue != null && Array.isArray(newValue.queues)) {
 								setQueues(newValue.queues);
 							} else {
-								setQueues(allQueues);
+								setQueues(Array.isArray(allQueues) ? allQueues : []);
 								setSelectedQueue('');
 							}
 						}}

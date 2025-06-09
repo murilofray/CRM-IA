@@ -2,8 +2,12 @@ import api from "../../services/api";
 
 const useQueues = () => {
 	const findAll = async () => {
-        const { data } = await api.get("/queue");
-        return data;
+        try {
+            const { data } = await api.get("/queue");
+            return Array.isArray(data) ? data : [];
+        } catch (err) {
+            return [];
+        }
     }
 
 	return { findAll };
