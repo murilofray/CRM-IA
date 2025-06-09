@@ -94,11 +94,11 @@ const TicketsManager = () => {
   const { user } = useContext(AuthContext);
   const [openCount, setOpenCount] = useState(0);
   const [pendingCount, setPendingCount] = useState(0);
-  const userQueueIds = user?.queues?.map((q) => q?.id).filter(Boolean) || [];
+  const userQueueIds = user && user.queues ? user.queues.map((q) => q && q.id).filter(Boolean) : [];
   const [selectedQueueIds, setSelectedQueueIds] = useState(userQueueIds);
 
   useEffect(() => {
-    if (user?.profile?.toUpperCase() === "ADMIN") {
+    if (user && user.profile && user.profile.toUpperCase() === "ADMIN") {
       setShowAllTickets(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -200,7 +200,7 @@ const TicketsManager = () => {
               {i18n.t("ticketsManager.buttons.newTicket")}
             </Button>
             <Can
-              role={user?.profile}
+              role={user && user.profile}
               perform="tickets-manager:showall"
               yes={() => (
                 <FormControlLabel
@@ -225,7 +225,7 @@ const TicketsManager = () => {
         <TicketsQueueSelect
           style={{ marginLeft: 6 }}
           selectedQueueIds={selectedQueueIds}
-          userQueues={user?.queues}
+          userQueues={user && user.queues}
           onChange={(values) => setSelectedQueueIds(values)}
         />
       </Paper>

@@ -211,7 +211,7 @@ const UserModal = ({ open, onClose, userId }) => {
 										margin="dense"
 									>
 										<Can
-											role={loggedInUser?.profile}
+											role={loggedInUser && loggedInUser.profile}
 											perform="user-modal:editProfile"
 											yes={() => (
 												<>

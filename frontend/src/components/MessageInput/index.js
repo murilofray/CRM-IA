@@ -259,7 +259,7 @@ const MessageInput = ({ ticketStatus }) => {
   };
 
   const handleInputPaste = (e) => {
-    if (e.clipboardData?.files?.[0]) {
+    if (e.clipboardData && e.clipboardData.files && e.clipboardData.files[0]) {
       setMedias([e.clipboardData.files[0]]);
     }
   };
@@ -270,10 +270,12 @@ const MessageInput = ({ ticketStatus }) => {
 
     const formData = new FormData();
     formData.append("fromMe", true);
-    medias?.forEach((media) => {
-      formData.append("medias", media);
-      formData.append("body", media?.name);
-    });
+    if (medias) {
+      medias.forEach((media) => {
+        formData.append("medias", media);
+        formData.append("body", media && media.name ? media.name : "");
+      });
+    }
 
     try {
       await api.post(`/messages/${ticketId}`, formData);
@@ -294,7 +296,7 @@ const MessageInput = ({ ticketStatus }) => {
       fromMe: true,
       mediaUrl: "",
       body: signMessage
-        ? `*${user?.name}:*\n${inputMessage.trim()}`
+        ? `*${user && user.name ? user.name : "User"}:*\n${inputMessage.trim()}`
         : inputMessage.trim(),
       quotedMsg: replyingMessage,
     };
@@ -397,7 +399,7 @@ const MessageInput = ({ ticketStatus }) => {
           <div className={classes.replyginMsgBody}>
             {!message.fromMe && (
               <span className={classes.messageContactName}>
-                {message.contact?.name}
+                {message.contact && message.contact.name}
               </span>
             )}
             {message.body}
@@ -432,7 +434,7 @@ const MessageInput = ({ ticketStatus }) => {
           </div>
         ) : (
           <span>
-            {medias[0]?.name}
+            {medias[0] && medias[0].name}
             {/* <img src={media.preview} alt=""></img> */}
           </span>
         )}
@@ -600,15 +602,15 @@ const MessageInput = ({ ticketStatus }) => {
             />
             {typeBar ? (
               <ul className={classes.messageQuickAnswersWrapper}>
-                {quickAnswers?.map((value, index) => {
+                {quickAnswers && quickAnswers.map((value, index) => {
                   return (
                     <li
                       className={classes.messageQuickAnswersWrapperItem}
                       key={index}
                     >
                       {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                      <a onClick={() => handleQuickAnswersClick(value?.message)}>
-                        {`${value?.shortcut} - ${value?.message}`}
+                      <a onClick={() => handleQuickAnswersClick(value && value.message)}>
+                        {`${value && value.shortcut} - ${value && value.message}`}
                       </a>
                     </li>
                   );

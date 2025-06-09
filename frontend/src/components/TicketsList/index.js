@@ -186,11 +186,11 @@ const reducer = (state, action) => {
 		const socket = openSocket();
 
 		const shouldUpdateTicket = ticket => !searchParam &&
-			(!ticket?.userId || ticket.userId === user?.id || showAll) &&
-			(!ticket?.queueId || selectedQueueIds?.indexOf(ticket.queueId) > -1);
+			(!(ticket && ticket.userId) || ticket.userId === (user && user.id) || showAll) &&
+			(!(ticket && ticket.queueId) || (selectedQueueIds && selectedQueueIds.indexOf(ticket.queueId) > -1));
 
 		const notBelongsToUserQueues = ticket =>
-			ticket?.queueId && selectedQueueIds?.indexOf(ticket.queueId) === -1;
+			(ticket && ticket.queueId) && (selectedQueueIds && selectedQueueIds.indexOf(ticket.queueId) === -1);
 
 		socket.on("connect", () => {
 			if (status) {
@@ -279,7 +279,7 @@ const reducer = (state, action) => {
 				onScroll={handleScroll}
 			>
 				<List style={{ paddingTop: 0 }}>
-					{!ticketsList || ticketsList.length === 0 && !loading ? (
+					{(!ticketsList || ticketsList.length === 0) && !loading ? (
 						<div className={classes.noTicketsDiv}>
 							<span className={classes.noTicketsTitle}>
 								{i18n.t("ticketsList.noTicketsTitle")}
@@ -290,8 +290,8 @@ const reducer = (state, action) => {
 						</div>
 					) : (
 						<>
-							{ticketsList?.map(ticket => (
-								<TicketListItem ticket={ticket} key={ticket?.id} />
+							{ticketsList && ticketsList.map(ticket => (
+								<TicketListItem ticket={ticket} key={ticket && ticket.id} />
 							))}
 						</>
 					)}

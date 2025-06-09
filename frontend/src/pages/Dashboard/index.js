@@ -48,8 +48,8 @@ const Dashboard = () => {
 	const { user } = useContext(AuthContext);
 	var userQueueIds = [];
 
-	if (user?.queues && user.queues.length > 0) {
-		userQueueIds = user.queues.map(q => q?.id).filter(Boolean);
+	if (user && user.queues && user.queues.length > 0) {
+		userQueueIds = user.queues.map(q => q && q.id).filter(Boolean);
 	}
 
 	const GetTickets = (status, showAll, withUnreadMessages) => {
