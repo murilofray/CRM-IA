@@ -10,23 +10,25 @@ let io: SocketIO;
 export const initIO = (httpServer: Server): SocketIO => {
   io = new SocketIO(httpServer, {
     cors: {
-      origin: process.env.FRONTEND_URL
+      origin: "*"
     }
   });
 
   io.on("connection", socket => {
-    const { token } = socket.handshake.query;
+    const { token } = socket.handshake.auth;
     let tokenData = null;
+
     try {
       tokenData = verify(token, authConfig.secret);
       logger.debug(JSON.stringify(tokenData), "io-onConnection: tokenData");
     } catch (error) {
       logger.error(JSON.stringify(error), "Error decoding token");
       socket.disconnect();
-      return io;
+      return;
     }
 
     logger.info("Client Connected");
+
     socket.on("joinChatBox", (ticketId: string) => {
       logger.info("A client joined a ticket channel");
       socket.join(ticketId);
@@ -48,6 +50,7 @@ export const initIO = (httpServer: Server): SocketIO => {
 
     return socket;
   });
+
   return io;
 };
 
